@@ -1,0 +1,245 @@
+<html>
+<body style='text-align: justify;'>
+	<center>
+		<p style='font-size: 12px;'>
+			<i>Symbol pusty (B) to liczba 8.</i>
+		<p>
+	</center>
+	<br />
+	<center><h1>
+		Maszyna Turinga -  Różnica właściwa (emulator)
+	</h1></center>
+	<hr />
+	<p style='text-indent: 20px;'>W celach samokształcenia program
+		został znacząco rozbudowany między innymi o funkcjonalne GUI posiadające
+		przyjazną wizualizację. W opisie programu skupiłem się na najważniejszych
+		elementach służących danemu zadaniu pomijając części nieistotne ze względu
+		na treść zadania</p>
+	<br />
+	<br />
+	<center><h1>
+		Opis MT
+	</h1></center>
+	<hr />
+	<p style='text-indent: 20px;'>Postać MT:</p>
+	<p style='text-indent: 60px; font-size: 20px; font-weight: bold;'>M = ( { Q0, Q1, Q2, Q3, Q4, Q5, Q6 }, { 0, 1 }, { 0, 1, B }, δ, Q0, B, 0 )</p>
+	<p style='text-indent: 20px;'>Dla δ:</p>
+		<table border='1' style='margin-left: 60px;'>
+			<tr>
+				<td>δ</td>
+				<td>0</td>
+				<td>1</td>
+				<td>B</td>
+			</tr>
+			<tr>
+				<td>Q0</td>
+				<td>( Q1, B, P )</td>
+				<td>( Q5, B, P )</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>Q1</td>
+				<td>( Q1, 0, P )</td>
+				<td>( Q2, 1, P )</td>
+				<td>-</td>
+			</tr>
+			<tr>
+				<td>Q2</td>
+				<td>( Q3, 1, L )</td>
+				<td>( Q2, 1, P )</td>
+				<td>( Q4, B, L )</td>
+			</tr>
+			<tr>
+				<td>Q3</td>
+				<td>( Q3, 0, L )</td>
+				<td>( Q3, 1, L )</td>
+				<td>( Q0, B, P )</td>
+			</tr>
+			<tr>
+				<td>Q4</td>
+				<td>( Q4, 0, L )</td>
+				<td>( Q4, B, L )</td>
+				<td>( Q6, B, P )</td>
+			</tr>
+			<tr>
+				<td>Q5</td>
+				<td>( Q5, B, P )</td>
+				<td>( Q5, B, P )</td>
+				<td>( Q6, B, P )</td>
+			</tr>
+			<tr>
+				<td>Q6</td>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+			</tr>
+		</table>
+	<p style='text-indent: 20px;'>UTARA Powyższa MT otrzymuje taśmę wejściową zakodowaną unarnie i oblicza ich różnicę właściwą według schematu:</p>
+	<center><img src='RWRWRWRW' /></center>
+	<br />
+	<br />
+	<center><h1>
+		Opis GUI
+	</h1></center>
+	<hr />
+	<p style='text-indent: 20px;'>Interfejs graficzny programu zawiera:</p>
+	<ul>
+		<li><b>Menu górne "Pomoc"</b> - umożliwia wyświetlenie opisu programu oraz informacji o aplikacji;</li>
+		<li><b>Panel "START"</b> - zawiera przycisk determinujący rozpoczęcie działania programu, pola do podania 2 liczb oraz suwak zmiany prędkości symulacji MT;</li>
+		<li><b>Panel "WIZUALIZACJA"</b> - zawiera wizualizację działania MT;</li>
+		<li><b>Panel "Interpretacja wyniku"</b> - zawiera dane chwilowe MT oraz wyświetla  czy MT poprawnie dokonała obliczeń i zakończyła działanie;</li>
+		<li><b>Panel "Różnica właściwa"</b> - zawiera informację, jak oblicza się różnicę właściwą;</li>
+		<li><b>Panel "Konsola pomocnicza"</b> - zawiera konsolę z rejestrem pracy MT;</li>
+	</ul>
+	<br />
+	<br />	
+	<center><h1>
+		Opis klas pakietu pl.morecraft.studia.mt.rw.core
+	</h1></center>
+	<hr />
+	<center><h2>
+		Klasa Przejscie
+	</h2></center>
+	<hr />
+	<p style='text-indent: 20px;'>
+		Obiekt tej klasy jest pojedynczym przejściem. Zawiera on pola:
+	</p>
+	<ul>
+		<li><b>stateA</b> - obecny stan MT;</li>
+		<li><b>stateB</b> - stan MT po przejściu;</li>
+		<li><b>symbolA</b> - obecny symbol na taśmie;</li>
+		<li><b>symbolB</b> - symbol do zapisania na taśmie;</li>
+		<li><b>direction</b> - prawo/lewo - kierunek przesunięcia głowicy;</li>
+	</ul>
+	<p style='text-indent: 20px;'>
+		Wartości tych pól to liczby typu Integer.
+		Kod tej klasy razem z opisem JavaDoc znajduje się w źródłach programu
+		w <i>pl/morecraft/studia/mt/rw/core/Przejscie.java</i>
+	</p>
+	<br />
+	<center><h2>
+		Klasa MTRwT
+	</h2></center>
+	<hr />
+	<p style='text-indent: 20px;'>
+		Obiekt tej klasy jest rdzeniem MT. Wykorzystuje klasę <i>Przejscie</i>. Zawiera pola:
+	</p>
+	<ul>
+		<li><b>tasma</b> - taśma na której pracuje MT;</li>
+		<li><b>stanObecny</b> - stan MT;</li>
+		<li><b>pozycja</b> - pozycja na taśmie wskazywana przez głowicę MT;</li>
+		<li><b>przejscia</b> - lista pzrejść - obiektów klasy <i>Przejscie</i>;</li>
+		<li><b>m, n</b> - liczby;</li>
+	</ul>
+	<p style='text-indent: 20px;'>
+		Kod całej klasy razem z opisem JavaDoc znajduje się w źródłach programu
+		w <i>pl/morecraft/studia/mt/rw/core/Przejscie.java</i>
+	</p>
+	<h3>Ważne metody</h3>
+	<p style='text-indent: 20px;'>
+		Generowanie taśmy - <b>setTasma</b>:
+	</p>
+	<pre style='color:#000000;background:#f1f0f0;'>
+	<span style='color:#3f5fbf; '></span>
+	<span style='color:#3f5fbf; '>/**</span>
+	<span style='color:#3f5fbf; '>&#xa0;</span><span style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> Metoda ta generuje unarną taśmę wejściową</span><span style='color:#7f9fbf; font-weight:bold; '>;</span><span style='color:#3f5fbf; '></span>
+	<span style='color:#3f5fbf; '>&#xa0;*/</span>
+	<span style='color:#400000; font-weight:bold; '>private</span> void setTasma() <span style='color:#806030; '>{</span>
+		
+		<span style='color:#400000; font-weight:bold; '>for</span> <span style='color:#806030; '>(</span><span style='color:#800040; '>int</span> i <span style='color:#806030; '>=</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>;</span> i <span style='color:#806030; '>&lt;</span> m<span style='color:#806030; '>;</span> i<span style='color:#806030; '>+</span><span style='color:#806030; '>+</span><span style='color:#806030; '>)</span>
+			tasma<span style='color:#806030; '>.</span>add<span style='color:#806030; '>(</span><span style='color:#c00000; '>0</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+		
+		tasma<span style='color:#806030; '>.</span>add<span style='color:#806030; '>(</span><span style='color:#c00000; '>1</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+		
+		<span style='color:#400000; font-weight:bold; '>for</span> <span style='color:#806030; '>(</span><span style='color:#800040; '>int</span> i <span style='color:#806030; '>=</span> <span style='color:#c00000; '>0</span><span style='color:#806030; '>;</span> i <span style='color:#806030; '>&lt;</span> n<span style='color:#806030; '>;</span> i<span style='color:#806030; '>+</span><span style='color:#806030; '>+</span><span style='color:#806030; '>)</span>
+			tasma<span style='color:#806030; '>.</span>add<span style='color:#806030; '>(</span><span style='color:#c00000; '>0</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+		
+		<span style='color:#c34e00; '>/* Dodaję trzy symbole puste */</span>
+		tasma<span style='color:#806030; '>.</span>add<span style='color:#806030; '>(</span><span style='color:#c00000; '>8</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+		tasma<span style='color:#806030; '>.</span>add<span style='color:#806030; '>(</span><span style='color:#c00000; '>8</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+		tasma<span style='color:#806030; '>.</span>add<span style='color:#806030; '>(</span><span style='color:#c00000; '>8</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+		
+		<span style='color:#c34e00; '>/* -666 oznacza "..." (wielokropek) - na potrzeby wizualizacji */</span>
+		tasma<span style='color:#806030; '>.</span>add<span style='color:#806030; '>(</span><span style='color:#806030; '>-</span><span style='color:#c00000; '>666</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+	<span style='color:#806030; '>}</span>
+	</pre>	
+	<p style='text-indent: 20px;'>
+		Wykonywanie przejścia - <b>robPrzejscie</b>:
+	</p>
+	<pre style='color:#000000;background:#f1f0f0;'>
+	<span style='color:#3f5fbf; '></span>
+	<span style='color:#3f5fbf; '>/**</span>
+	<span style='color:#3f5fbf; '>&#xa0;</span><span style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> Metoda ta "robi" przejscie MT</span><span style='color:#7f9fbf; font-weight:bold; '>;</span><span style='color:#3f5fbf; '></span>
+	<span style='color:#3f5fbf; '>&#xa0;*/</span>
+	<span style='color:#400000; font-weight:bold; '>public</span> void robPrzejscie() <span style='color:#806030; '>{</span>
+		<span style='color:#c34e00; '>/* Sprawdza, czy MT nie zakończyła już działania */</span>
+		<span style='color:#400000; font-weight:bold; '>if</span> <span style='color:#806030; '>(</span><span style='color:#806030; '>!</span>isEnd<span style='color:#806030; '>)</span> <span style='color:#806030; '>{</span>
+			<span style='color:#c34e00; '>/* Inkrementuje licznik przejść */</span>
+			licznikPrzejsc<span style='color:#806030; '>+</span><span style='color:#806030; '>+</span><span style='color:#806030; '>;</span>
+			<span style='color:#c34e00; '>/* Wybiera odpowiednie przejście */</span>
+			Przejscie p <span style='color:#806030; '>=</span> getPzrejscieFromAB<span style='color:#806030; '>(</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+			<span style='color:#c34e00; '>/* Sparwdza, czy ono istnieje */</span>
+			<span style='color:#400000; font-weight:bold; '>if</span> <span style='color:#806030; '>(</span>p <span style='color:#806030; '>!</span><span style='color:#806030; '>=</span> <span style='color:#400000; font-weight:bold; '>null</span><span style='color:#806030; '>)</span> <span style='color:#806030; '>{</span>
+				<span style='color:#c34e00; '>/* Dokonuje przejścia */</span>
+				stanObecny <span style='color:#806030; '>=</span> p<span style='color:#806030; '>.</span>getStanB<span style='color:#806030; '>(</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+				tasma<span style='color:#806030; '>.</span>set<span style='color:#806030; '>(</span>pozycja<span style='color:#806030; '>,</span> p<span style='color:#806030; '>.</span>getSymbolB<span style='color:#806030; '>(</span><span style='color:#806030; '>)</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+				pozycja <span style='color:#806030; '>+</span><span style='color:#806030; '>=</span> p<span style='color:#806030; '>.</span>getStrona<span style='color:#806030; '>(</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+			<span style='color:#806030; '>}</span>
+			<span style='color:#c34e00; '>/* Sprawdza, czy MT jest w stanie końcowym lub nie ma kolejnych przejśc */</span>
+			isEnd <span style='color:#806030; '>=</span> sprawdzCzyStanKoncowy<span style='color:#806030; '>(</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+		<span style='color:#806030; '>}</span>
+	<span style='color:#806030; '>}</span>
+	</pre>	
+	<p style='text-indent: 20px;'>
+		Praca całościowa - <b>makeAll</b>:
+	</p>
+	<pre style='color:#000000;background:#f1f0f0;'>
+	<span style='color:#3f5fbf; '></span>
+	<span style='color:#3f5fbf; '>/**</span>
+	<span style='color:#3f5fbf; '>&#xa0;</span><span style='color:#7f9fbf; font-weight:bold; '>*</span><span style='color:#3f5fbf; '> Metoda ta dokonuje pracy MT</span><span style='color:#7f9fbf; font-weight:bold; '>;</span><span style='color:#3f5fbf; '></span>
+	<span style='color:#3f5fbf; '>&#xa0;*/</span>
+	<span style='color:#400000; font-weight:bold; '>public</span> void makeAll() <span style='color:#806030; '>{</span>
+		<span style='color:#c34e00; '>/* Przekazuje dane do GUI */</span>
+		przekazDane<span style='color:#806030; '>(</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+		
+		<span style='color:#c34e00; '>/* Wykonuje pracę dopóki maszyna nie jest w stanie końcowym lub nie ma kolejnych przejśc */</span>
+		<span style='color:#400000; font-weight:bold; '>while</span> <span style='color:#806030; '>(</span><span style='color:#806030; '>!</span>isEnd<span style='color:#806030; '>)</span> <span style='color:#806030; '>{</span>
+			
+			<span style='color:#c34e00; '>/* Przejście */</span>
+			robPrzejscie<span style='color:#806030; '>(</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+			
+			<span style='color:#c34e00; '>/* Usypia wątek na dany czas */</span>
+			<span style='color:#400000; font-weight:bold; '>try</span> <span style='color:#806030; '>{</span>
+				<span style='color:#800040; '>Thread</span><span style='color:#806030; '>.</span>sleep<span style='color:#806030; '>(</span>czas<span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+			<span style='color:#806030; '>}</span> <span style='color:#400000; font-weight:bold; '>catch</span> <span style='color:#806030; '>(</span><span style='color:#800040; '>InterruptedException</span> e<span style='color:#806030; '>)</span> <span style='color:#806030; '>{</span>
+				e<span style='color:#806030; '>.</span>printStackTrace<span style='color:#806030; '>(</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+				<span style='color:#800040; '>System</span><span style='color:#806030; '>.</span>exit<span style='color:#806030; '>(</span><span style='color:#c00000; '>2</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+			<span style='color:#806030; '>}</span>
+			
+			<span style='color:#c34e00; '>/* Przekazuje dane do GUI */</span>
+			przekazDane<span style='color:#806030; '>(</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+		<span style='color:#806030; '>}</span>
+
+		<span style='color:#c34e00; '>/* Przekazuje dane o wyniku końcowym do GUI */</span>
+		Main<span style='color:#806030; '>.</span>app<span style='color:#806030; '>.</span>setWerdykt<span style='color:#806030; '>(</span>sprawdzCzyWynikPoprawny<span style='color:#806030; '>(</span><span style='color:#806030; '>)</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
+	<span style='color:#806030; '>}</span>
+	</pre>
+	<br />
+	<br />
+	<center><h1>
+		Uruchamianie programu
+	</h1></center>
+	<hr />
+	<p style='text-indent: 20px;'>Należy skorzystać z pliku <i>MT - Różnica właściwa.jar</i>.</p>
+	<br />
+	<br />
+	<center><h1>
+		Przykład użycia
+	</h1></center>
+	<hr />
+	<br />
+	<center><img src='RWRURAR' /></center>
+	<br />
+	<br />
+</body>
+</html>
