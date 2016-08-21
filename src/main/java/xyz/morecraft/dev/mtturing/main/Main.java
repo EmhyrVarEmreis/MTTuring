@@ -296,6 +296,12 @@ public class Main extends JFrame implements ActionListener, ChangeListener {
 
     private void startMain() {
         ta1.setText("");
+        if (tfn.getText().isEmpty()) {
+            tfn.setText("1");
+        }
+        if (tfm.getText().isEmpty()) {
+            tfm.setText("1");
+        }
         jlc1b.setText(tfm.getText()
                 + " - "
                 + tfn.getText()
