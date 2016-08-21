@@ -2,28 +2,25 @@
 <body style='text-align: justify;'>
 	<center>
 		<p style='font-size: 12px;'>
-			<i>Symbol pusty (B) to liczba 8.</i>
+			<i>Empty symbol (B) is number 8.</i>
 		<p>
 	</center>
 	<br />
 	<center><h1>
-		Maszyna Turinga -  Różnica właściwa (emulator)
+		Turing Machine - Proper Difference (emulation)
 	</h1></center>
 	<hr />
-	<p style='text-indent: 20px;'>W celach samokształcenia program
-		został znacząco rozbudowany między innymi o funkcjonalne GUI posiadające
-		przyjazną wizualizację. W opisie programu skupiłem się na najważniejszych
-		elementach służących danemu zadaniu pomijając części nieistotne ze względu
-		na treść zadania</p>
+	<p style='text-indent: 20px;'>This program provides simulation with in-GUI visualisation.
+		This description contains only the most important things.</p>
 	<br />
 	<br />
 	<center><h1>
-		Opis MT
+		Turing Machine - Description
 	</h1></center>
 	<hr />
-	<p style='text-indent: 20px;'>Postać MT:</p>
-	<p style='text-indent: 60px; font-size: 20px; font-weight: bold;'>M = ( { Q0, Q1, Q2, Q3, Q4, Q5, Q6 }, { 0, 1 }, { 0, 1, B }, δ, Q0, B, 0 )</p>
-	<p style='text-indent: 20px;'>Dla δ:</p>
+	<p style='text-indent: 20px;'>Transformations:</p>
+	<p style='text-indent: 60px; font-size: 16px; font-weight: bold;'>M = ( { Q0, Q1, Q2, Q3, Q4, Q5, Q6 }, { 0, 1 }, { 0, 1, B }, δ, Q0, B, 0 )</p>
+	<p style='text-indent: 20px;'>For δ:</p>
 		<table border='1' style='margin-left: 60px;'>
 			<tr>
 				<td>δ</td>
@@ -92,7 +89,7 @@
 		<li><b>Panel "Konsola pomocnicza"</b> - zawiera konsolę z rejestrem pracy MT;</li>
 	</ul>
 	<br />
-	<br />	
+	<br />
 	<center><h1>
 		Opis klas pakietu pl.morecraft.studia.mt.rw.core
 	</h1></center>
@@ -162,7 +159,7 @@
 		<span style='color:#c34e00; '>/* -666 oznacza "..." (wielokropek) - na potrzeby wizualizacji */</span>
 		tasma<span style='color:#806030; '>.</span>add<span style='color:#806030; '>(</span><span style='color:#806030; '>-</span><span style='color:#c00000; '>666</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
 	<span style='color:#806030; '>}</span>
-	</pre>	
+	</pre>
 	<p style='text-indent: 20px;'>
 		Wykonywanie przejścia - <b>robPrzejscie</b>:
 	</p>
@@ -189,7 +186,7 @@
 			isEnd <span style='color:#806030; '>=</span> sprawdzCzyStanKoncowy<span style='color:#806030; '>(</span><span style='color:#806030; '>)</span><span style='color:#806030; '>;</span>
 		<span style='color:#806030; '>}</span>
 	<span style='color:#806030; '>}</span>
-	</pre>	
+	</pre>
 	<p style='text-indent: 20px;'>
 		Praca całościowa - <b>makeAll</b>:
 	</p>
